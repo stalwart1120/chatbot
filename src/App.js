@@ -7,13 +7,9 @@ const App = () => {
 
   // Fetch messages from the backend when the component loads
   useEffect(() => {
-    // Clear previous messages when the app starts
-    setMessages([]);
-
-    axios.get('http://localhost:3001/messages')
+    axios.get(`https://chatbotback-sj5e.onrender.com}/messages`)
       .then((response) => {
-        // Optionally fetch and display the messages from the database, if needed
-        // setMessages(response.data);
+        setMessages(response.data); // Set the fetched messages
       })
       .catch((error) => {
         console.error('Error fetching messages:', error);
@@ -26,12 +22,16 @@ const App = () => {
     if (newMessage.trim() === '') return;
 
     // Send user message to backend
-    axios.post('http://localhost:3001/messages', { message: newMessage })
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/messages`, { message: newMessage })
       .then((response) => {
         const { userMessage, botReply } = response.data;
 
         // Update the messages state with both user and bot's messages
-        setMessages([...messages, { content: userMessage, sender: 'user' }, { content: botReply, sender: 'bot' }]);
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { content: userMessage, sender: 'user' },
+          { content: botReply, sender: 'bot' },
+        ]);
         setNewMessage('');
       })
       .catch((error) => {
@@ -87,6 +87,7 @@ const styles = {
     maxWidth: '600px',
     height: '400px',
     overflowY: 'scroll',
+    overflowX: 'hidden', // Prevent horizontal scrolling
     backgroundColor: '#fff',
     boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
   },
