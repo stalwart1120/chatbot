@@ -132,14 +132,14 @@ if __name__ == "__main__":
 
 
         elif 'open code' in query:
-            codePath = "C:\\Users\\somka\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
+            codePath = "vs code path\\Code.exe"
             os.startfile(codePath)
 
         elif 'close code' in query:
             os.system("taskkill /f /im Code.exe")
 
         #elif 'open spotify' in query:
-         #   spotify = "C:\\Users\\somka\\AppData\\Roaming\\Spotify\\Spotify.exe"
+         #   spotify = "spotify path \\Spotify.exe"
          #   os.startfile(spotify)
 
         elif 'close spotify' in query:
