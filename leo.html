@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LEO: Your Personal Assistant</title>
+    <style>
+        body {
+            background-image: url("leo.jpg");
+            background-size: cover;
+            text-align: center;
+            font-family: Poppins, sans-serif;
+            color: white;
+            margin-top: 20%;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #00bcd4;
+            color: white;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0097a7;
+        }
+    </style>
+</head>
+<body>
+    <h1>👋 Welcome to LEO</h1>
+    <p>Your Personal AI Assistant</p>
+    <button onclick="startLEO()">Start Assistant</button>
+    <button onclick="getNews()">Get News</button>
+
+    <script>
+        function startLEO() {
+            fetch("http://127.0.0.1:5000/start")
+                .then(response => response.json())
+                .then(data => alert(data.message))
+                .catch(err => alert("Error: " + err));
+        }
+
+        function getNews() {
+            fetch("http://127.0.0.1:5000/news")
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    alert("News fetched! Check console.");
+                })
+                .catch(err => alert("Error: " + err));
+        }
+    </script>
+</body>
+</html>
